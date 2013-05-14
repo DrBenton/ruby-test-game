@@ -15,6 +15,9 @@ module RubyGame
     end
 
     def update
+      
+      return unless self.run?
+      
       puts "update" if DEBUG > 1
       
       @player.move_left if button_down? Gosu::Button::KbLeft
@@ -22,6 +25,13 @@ module RubyGame
       @player.move_up if button_down? Gosu::Button::KbUp
       @player.move_down if button_down? Gosu::Button::KbDown
       
+      @player.update
+
+      if @player.touch? @ruby
+        self.won!
+        @player.finish
+
+      end
     end
 
     def draw
@@ -39,6 +49,14 @@ module RubyGame
       init_background
       init_core_sprites
       self.show
+    end
+    
+    def run?
+      @state == :run
+    end
+    
+    def won!
+      @state = :won
     end
 
     private
