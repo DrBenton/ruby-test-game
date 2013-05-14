@@ -44,6 +44,10 @@ module RubyGame
       @text.draw("You won!", 200, 240, 2, 1.0, 1.0, 0xffffff00) if won?
 
     end
+    
+    def button_down(id)
+      self.close if id == Gosu::Button::KbEscape
+    end
 
     def start!
       @state = :run
