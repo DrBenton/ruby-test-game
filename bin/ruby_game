@@ -3,14 +3,11 @@ require_relative '../lib/ruby_game'
 
 DEBUG = true
 
-puts "RubyGame::IMAGES_PATH=#{RubyGame::IMAGES_PATH}" if DEBUG
-
-# objects setup
-ruby = RubyGame::Ruby.new 65, 115
-player = RubyGame::Player.new 300, 400
-
-# Game init
-game = RubyGame::Game.new ruby, player
+game = RubyGame::Game.new
 
 # Go! Go! Go!
-game.start!
+game.start! do |g|
+    g.ruby RubyGame::Ruby.new 65, 115
+    g.player RubyGame::Player.new 300, 400
+    g.monster RubyGame::Monster.new
+end
