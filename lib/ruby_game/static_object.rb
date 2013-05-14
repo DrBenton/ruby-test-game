@@ -1,7 +1,13 @@
+require 'forwardable'
+
 
 module RubyGame
   
   class StaticObject
+    
+    extend Forwardable
+    
+    def_delegator :@image, :width
     
     DEFAULT_DEPTH = 1
     DEFAULT_ROTATION = 0

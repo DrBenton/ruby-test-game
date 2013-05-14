@@ -30,17 +30,18 @@ module RubyGame
       if @player.touch? @ruby
         self.won!
         @player.finish
-
       end
     end
 
     def draw
       puts "draw" if DEBUG > 1
-      
+
       @background_image.draw 0, 0, BACKGROUND_DEPTH
-      
+
       @ruby.draw
       @player.draw
+      
+      @text.draw("You won!", 200, 240, 2, 1.0, 1.0, 0xffffff00) if won?
 
     end
 
@@ -48,6 +49,7 @@ module RubyGame
       @state = :run
       init_background
       init_core_sprites
+      init_text
       self.show
     end
     
@@ -58,17 +60,25 @@ module RubyGame
     def won!
       @state = :won
     end
+    
+    def won?
+      @state == :won
+    end
 
     private
 
       def init_background
         @background_image = Gosu::Image.new(self, File.join(IMAGES_PATH, 'background.png'))
       end
-
+  
       def init_core_sprites
         @ruby.init_image(self)
         @player.init_image(self)
         @player.init_limits width, height, 15, 40
+      end
+  
+      def init_text
+        @text = Gosu::Font.new(self, Gosu::default_font_name, 60)
       end
     
   end

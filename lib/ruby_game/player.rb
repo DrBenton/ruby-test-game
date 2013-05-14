@@ -21,7 +21,7 @@ module RubyGame
     end
     
     def touch?(object)
-      Math.hypot(@x - object.x, @y - object.y) < 50
+      Math.hypot(@x - object.x, @y - object.y) < (object.width/2)
     end
     
     def update
