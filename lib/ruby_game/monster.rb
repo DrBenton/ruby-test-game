@@ -16,8 +16,8 @@ module RubyGame
     end
 
     def random_pos!
-      @x = rand( @border_top_width+100..(@max_width - 2*@border_top_width) ) if @x.nil?
-      @y = rand( @border_top_width+100..(@max_height - 2*@border_top_width) ) if @y.nil?
+      random_pos_x! if @x.nil?
+      random_pos_y! if @y.nil?
     end
     
     def set_target(target, speed)
@@ -41,7 +41,7 @@ module RubyGame
           self.move_up @to_target_speed
         end
 
-      end
+      end #end unless @target.nil?
       
       super
       

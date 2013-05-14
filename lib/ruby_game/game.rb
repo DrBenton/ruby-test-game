@@ -83,13 +83,16 @@ module RubyGame
       
       # init !
       @initializer.call(self)
-      
+
+
       @state = :run
-      
+
       #puts "@initialized=#{@initialized}"
       init_core_sprites
       init_monsters
       init_text
+      
+      @ruby.random_pos!
 
       unless @initialized
 
@@ -145,11 +148,12 @@ module RubyGame
   
       def init_core_sprites
         @ruby.init_image(self)
+        @ruby.init_limits width, height, 15, 40
         @player.init_image(self)
         @player.init_limits width, height, 15, 40
       end
 
-      def init_monsters
+    def init_monsters
         @monsters.each do |monster|
           monster.init_image(self)
           monster.init_limits width, height, 15, 40

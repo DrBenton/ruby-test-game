@@ -15,11 +15,6 @@ module RubyGame
       @speed_y = 0
     end
 
-    def init_limits(max_width, max_height, border_width, border_top_width)
-      @max_width, @max_height = max_width, max_height
-      @border_width, @border_top_width = border_width, border_top_width
-    end
-
     def touch?(object)
       Math.hypot(@x - object.x, @y - object.y) < (object.width/2)
     end

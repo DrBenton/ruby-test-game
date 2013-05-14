@@ -32,7 +32,25 @@ module RubyGame
     def draw
       @image.draw_rot(@x, @y, self.depth, self.rotation, 0.5, 0.5, 1, 1, draw_color, :default)
     end
+
+    def init_limits(max_width, max_height, border_width, border_top_width)
+      @max_width, @max_height = max_width, max_height
+      @border_width, @border_top_width = border_width, border_top_width
+    end
     
-  end
+    def random_pos_x!
+      @x = rand( @border_top_width+100..(@max_width - 2*@border_top_width) )
+    end
+
+    def random_pos_y!
+      @y = rand( @border_top_width+100..(@max_height - 2*@border_top_width) )
+    end
+
+    def random_pos!
+      random_pos_x!
+      random_pos_y!
+    end
+    
+  end    
   
 end
