@@ -8,6 +8,9 @@ game = RubyGame::Game.new
 RubyGame::Monster.define_profile :ghost do
     image_name 'ghost3'
     speed 0.15
+    action :move_left, speed: 1, repeat: 30
+    action :move_up, speed: 2, repeat: 10
+    action :move_down, speed: 0.5, repeat: 100
 end
 
 # Go! Go! Go!
