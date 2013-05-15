@@ -12,7 +12,6 @@ module RubyGame
 
     def init_limits(max_width, max_height, border_width, border_top_width)
       super
-      random_pos!
     end
 
     def random_pos!

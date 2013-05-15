@@ -9,7 +9,7 @@ module RubyGame
     MONSTERS_SPEED = 0.5
     
     def initialize
-      super(640, 480, false)
+      super(640, 480, false, 1000/30) # 30fps, please
       self.caption = "Ruby Game!"
       @initialized = false
       @monsters = []
@@ -65,15 +65,6 @@ module RubyGame
       self.close if id == Gosu::Button::KbEscape
       self.restart! if [:won, :lost].include?(@state) && id == Gosu::Button::KbSpace
     end
-    
-    def restart!
-      @monsters.each do |monster|
-        # force monsters random position for next round ! :-)
-        monster.x = nil
-        monster.y = nil
-      end
-      start!
-    end
 
     def start!(&block)
       
@@ -105,6 +96,8 @@ module RubyGame
       end
       
     end
+    
+    alias_method :restart!, :start!
     
     def won!
       @state = :won
@@ -152,6 +145,7 @@ module RubyGame
         @monsters.each do |monster|
           monster.init_image(self)
           monster.init_limits width, height, 15, 40
+          monster.random_pos!
           monster.set_target @player, MONSTERS_SPEED
         end
       end
