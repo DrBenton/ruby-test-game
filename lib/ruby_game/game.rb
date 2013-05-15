@@ -124,12 +124,11 @@ module RubyGame
       end
     end
     
-    def ruby(ruby)
-      @ruby = ruby
-    end
-    
-    def player(player)
-      @player = player
+    # let's define "entity setter" at runtime... Ruby metaprogrammation powhaaaaa! (bis)
+    %w(ruby player).each do |entity|
+      define_method "#{entity}" do |entity_instance|
+        instance_variable_set "@#{entity}", entity_instance
+      end
     end
     
     def monster(monster)
