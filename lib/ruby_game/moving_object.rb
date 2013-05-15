@@ -15,7 +15,7 @@ module RubyGame
     end
 
     def touch?(object)
-      distance(object) < (object.width/2)
+      distance(object) < (object.width/1.5)
     end
 
     def distance(object)

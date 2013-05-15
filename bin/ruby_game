@@ -33,6 +33,19 @@ RubyGame::Monster.define_profile :ghost3 do
     action :hunt, speed: 0.5, repeat: 100
 end
 
+RubyGame::Monster.define_profile :undead do
+    image_name 'undead'
+    speed 0.15
+    action :move_random,repeat: 30
+    action :hunt, repeat: 100
+end
+
+RubyGame::Monster.define_profile :hornet do
+    image_name 'hornet'
+    speed 4
+    action :move_random,repeat: 30
+end
+
 # Go! Go! Go!
 game.start! do
     ruby RubyGame::Ruby.new 65, 115
@@ -41,4 +54,6 @@ game.start! do
     monsters RubyGame::Monster.build(:ghost1, 2)
     monsters RubyGame::Monster.build(:ghost2, 2)
     monsters RubyGame::Monster.build(:ghost3)
+    monsters RubyGame::Monster.build(:undead)
+    monsters RubyGame::Monster.build(:hornet, 4)
 end

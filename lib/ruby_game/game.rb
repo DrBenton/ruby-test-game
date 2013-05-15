@@ -7,9 +7,12 @@ module RubyGame
     DEBUG = 1
     BACKGROUND_DEPTH = 0
     ROUND_START_INVICIBILITY_DURATION = 30
+    BACKGROUND_SCALE = 1.5
     
     def initialize
-      super(640, 480, false, 1000/30) # 30fps, please
+      @width = (640 * BACKGROUND_SCALE).to_i
+      @height = (480 * BACKGROUND_SCALE).to_i
+      super(@width , @height, false, 1000/30) # 30fps, please
       self.caption = "Ruby Game!"
       @initialized = false
       @monsters = []
@@ -41,7 +44,7 @@ module RubyGame
           end
         end
 
-        if @player.touch? @ruby
+        if @ruby.visible? && @player.touch?(@ruby)
           self.won!
           @player.finish
         end
@@ -54,6 +57,7 @@ module RubyGame
         @monsters.each do |monster|
           monster.unfade!
         end
+        @ruby.show!
       end
       
     end
@@ -61,7 +65,7 @@ module RubyGame
     def draw
       puts "draw" if DEBUG > 1
 
-      @background_image.draw 0, 0, BACKGROUND_DEPTH
+      @background_image.draw 0, 0, BACKGROUND_DEPTH, BACKGROUND_SCALE, BACKGROUND_SCALE
 
       @ruby.draw
       @player.draw
@@ -101,6 +105,7 @@ module RubyGame
       init_text
       
       @ruby.random_pos!
+      @ruby.hide!
       
       @countdown_before_ennemies_activation = ROUND_START_INVICIBILITY_DURATION
 

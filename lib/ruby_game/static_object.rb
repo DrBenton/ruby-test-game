@@ -24,15 +24,15 @@ module RubyGame
       @rotation = DEFAULT_ROTATION
       @draw_color = DEFAULT_DRAW_COLOR
       @draw_mode = DEFAULT_DRAW_MODE
+      @visible = true
     end
-    
     
     def init_image(window)
       @image = Gosu::Image.new(window, File.join(IMAGES_PATH, "#{@image_name}.png"))
     end
     
     def draw
-      @image.draw_rot(@x, @y, @depth, @rotation, 0.5, 0.5, 1, 1, draw_color, @draw_mode)
+      @image.draw_rot(@x, @y, @depth, @rotation, 0.5, 0.5, 1, 1, draw_color, @draw_mode) if @visible
     end
 
     def init_limits(max_width, max_height, border_width, border_top_width)
@@ -64,6 +64,18 @@ module RubyGame
 
     def unfade!
       @draw_mode = DEFAULT_DRAW_MODE
+    end
+
+    def hide!
+      @visible = false
+    end
+
+    def show!
+      @visible = true
+    end
+
+    def visible?
+      @visible
     end
     
   end    
