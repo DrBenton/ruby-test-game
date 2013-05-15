@@ -5,9 +5,15 @@ DEBUG = true
 
 game = RubyGame::Game.new
 
+RubyGame::Monster.define_profile :ghost do
+    image_name 'ghost2'
+    speed 1.5
+end
+
 # Go! Go! Go!
-game.start! do |g|
-    g.ruby RubyGame::Ruby.new 65, 115
-    g.player RubyGame::Player.new 300, 400
-    g.monster RubyGame::Monster.new
+game.start! do
+    ruby RubyGame::Ruby.new 65, 115
+    player RubyGame::Player.new 300, 400
+    #monster RubyGame::Monster.new
+    monsters Array.new(2) {RubyGame::Monster.build(:ghost)} #populates an Array X times with the content returned by the block
 end

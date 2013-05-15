@@ -55,6 +55,10 @@ module RubyGame
     def finish
       self.draw_color = 0xffffffff
     end
+    
+    def speed(speed) #for DSL
+      @speed = speed
+    end
 
     private
 

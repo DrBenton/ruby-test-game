@@ -51,6 +51,10 @@ module RubyGame
       random_pos_y!
     end
     
+    def image_name(img_name) #for DSL
+      @image_name = img_name
+    end
+    
   end    
   
 end

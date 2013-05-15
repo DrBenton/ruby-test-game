@@ -73,8 +73,8 @@ module RubyGame
       end
       
       # init !
-      @initializer.call(self)
-
+      @monsters.clear
+      self.instance_eval &@initializer
 
       @state = :run
 
@@ -91,7 +91,7 @@ module RubyGame
 
         @initialized = true
         
-        self.show if block_given?
+        self.show if block_given? # "show" is a blocking call : any following code in the method won't be reached!
 
       end
       
@@ -126,6 +126,10 @@ module RubyGame
     
     def monster(monster)
       @monsters << monster
+    end
+    
+    def monsters(monsters_array)
+      @monsters += monsters_array
     end
 
     private
@@ -169,7 +173,6 @@ module RubyGame
       @text_pos_x = width/2 - (100 * @text_scale)
       @text_pos_y = height/2 - (10 * @text_scale)
     end
-    
     
   end
   

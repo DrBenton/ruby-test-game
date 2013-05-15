@@ -4,11 +4,22 @@ module RubyGame
   
   class Monster < MovingObject
     
+    @@profiles = {}
     
     def initialize(x = nil, y = nil, image_name = 'ghost1')
       super
     end
 
+    def self.define_profile(profile_name_sym, &init_block)
+      monster_profile_model = Monster.new
+      monster_profile_model.instance_eval(&init_block)
+      @@profiles[profile_name_sym] = monster_profile_model
+    end
+
+    def self.build(profile_name_sym)
+      monster_profile_model = @@profiles[profile_name_sym]
+      monster_profile_model.clone
+    end
 
     def init_limits(max_width, max_height, border_width, border_top_width)
       super
