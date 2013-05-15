@@ -1,24 +1,24 @@
 # RubyGame
 
-TODO: Write a gem description
+A sample Ruby game made with Gosu library.  
+
+It has been made as an educational subject during a 3 days Ruby training with [Human Coders](http://formations.humancoders.com/formations/ruby).
+
+Thanks to them, it was a great training!
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'ruby_game'
+    gem 'ruby_game', :git => 'git://github.com/DrBenton/ruby-test-game.git'
 
 And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install ruby_game
-
 ## Usage
 
-TODO: Write usage instructions here
+This is not really a "real usage" Gem, just an educational program to learn some Ruby specific features :-)
 
 ## Contributing
 
