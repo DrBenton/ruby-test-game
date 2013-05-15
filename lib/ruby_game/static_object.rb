@@ -12,16 +12,18 @@ module RubyGame
     DEFAULT_DEPTH = 1
     DEFAULT_ROTATION = 0
     DEFAULT_DRAW_COLOR = 0xffffffff
+    DEFAULT_DRAW_MODE = :default
 
-    attr_accessor :x, :y, :depth, :rotation, :draw_color
+    attr_accessor :x, :y, :depth, :rotation, :draw_color, :draw_mode
     
-    def initialize(x,y, image_name)
+    def initialize(x, y, image_name)
       @x, @y = x, y
       @image_name = image_name
       
-      self.depth = DEFAULT_DEPTH
-      self.rotation = DEFAULT_ROTATION
-      self.draw_color = DEFAULT_DRAW_COLOR
+      @depth = DEFAULT_DEPTH
+      @rotation = DEFAULT_ROTATION
+      @draw_color = DEFAULT_DRAW_COLOR
+      @draw_mode = DEFAULT_DRAW_MODE
     end
     
     
@@ -30,7 +32,7 @@ module RubyGame
     end
     
     def draw
-      @image.draw_rot(@x, @y, self.depth, self.rotation, 0.5, 0.5, 1, 1, draw_color, :default)
+      @image.draw_rot(@x, @y, @depth, @rotation, 0.5, 0.5, 1, 1, draw_color, @draw_mode)
     end
 
     def init_limits(max_width, max_height, border_width, border_top_width)
@@ -53,6 +55,15 @@ module RubyGame
     
     def image_name(img_name) #for DSL
       @image_name = img_name
+    end
+
+    def fade!
+      @draw_mode = :add
+      @draw_color = 0x80ffa0a0
+    end
+
+    def unfade!
+      @draw_mode = DEFAULT_DRAW_MODE
     end
     
   end    

@@ -6,6 +6,7 @@ module RubyGame
     
     DEBUG = 1
     BACKGROUND_DEPTH = 0
+    ROUND_START_INVICIBILITY_DURATION = 30
     
     def initialize
       super(640, 480, false, 1000/30) # 30fps, please
@@ -26,18 +27,35 @@ module RubyGame
       @player.move_down if button_down? Gosu::Button::KbDown
       
       @player.update
+      @player.safe!
       
-      @monsters.each do |monster|
-        monster.update
-        if monster.touch? @player
-          self.lost!
+      if @countdown_before_ennemies_activation == 0
+        
+        @monsters.each do |monster|
+          monster.update @player
+          if monster.distance(@player) < Player::DANGER_DISTANCE
+            @player.danger!
+          end
+          if monster.touch? @player
+            self.lost!
+          end
         end
+
+        if @player.touch? @ruby
+          self.won!
+          @player.finish
+        end
+        
       end
 
-      if @player.touch? @ruby
-        self.won!
-        @player.finish
+      @countdown_before_ennemies_activation -= 1 if @countdown_before_ennemies_activation > 0
+      
+      if @countdown_before_ennemies_activation == 1
+        @monsters.each do |monster|
+          monster.unfade!
+        end
       end
+      
     end
 
     def draw
@@ -83,6 +101,8 @@ module RubyGame
       init_text
       
       @ruby.random_pos!
+      
+      @countdown_before_ennemies_activation = ROUND_START_INVICIBILITY_DURATION
 
       unless @initialized
 
@@ -149,6 +169,7 @@ module RubyGame
           monster.init_image(self)
           monster.init_limits width, height, 15, 40
           monster.random_pos!
+          monster.fade!
           monster.set_target @player
         end
       end

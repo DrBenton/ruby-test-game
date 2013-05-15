@@ -9,15 +9,18 @@ module RubyGame
 
     def initialize(x, y, image_name)
       super
-      @draw_color = 0xffffffff # 0xffff0000
       @speed = DEFAULT_SPEED
       @speed_x = 0
       @speed_y = 0
     end
 
     def touch?(object)
-      Math.hypot(@x - object.x, @y - object.y) < (object.width/2)
+      distance(object) < (object.width/2)
     end
+
+    def distance(object)
+      Math.hypot(@x - object.x, @y - object.y)
+    end    
 
     def update
       @speed_x *= 0.9
@@ -29,31 +32,34 @@ module RubyGame
     end
 
     def move_up(speed = @speed)
-      #@y -= speed if @y > @border_with + @border_top_with + (@image.height/2)
       @speed_y -= speed
       self
     end
 
     def move_down(speed = @speed)
-      #@y += speed if @y < @max_height - @border_with - (@image.height/2)
       @speed_y += speed
       self
     end
 
     def move_left(speed = @speed)
-      #@x -= speed if @x > @border_with + (@image.width/2)
       @speed_x -= speed
       self
     end
 
     def move_right(speed = @speed)
-      #@x += speed if @x < @max_width - @border_with - (@image.width/2)
       @speed_x += speed
       self
     end
 
+    def move_random(speed = @speed)
+      @available_moves ||= %w(move_up move_down move_left move_right)
+      target_move = @available_moves.sample
+      self.send target_move, speed
+      self
+    end
+
     def finish
-      self.draw_color = 0xffffffff
+      @draw_color = 0xffffffff
     end
     
     def speed(speed) #for DSL

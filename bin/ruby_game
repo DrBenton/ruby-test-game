@@ -5,12 +5,32 @@ DEBUG = true
 
 game = RubyGame::Game.new
 
-RubyGame::Monster.define_profile :ghost do
-    image_name 'ghost3'
+RubyGame::Monster.define_profile :ghost1 do
+    image_name 'ghost1'
     speed 0.15
     action :move_left, speed: 1, repeat: 30
+    action :hunt, speed: 0.5, repeat: 50
     action :move_up, speed: 2, repeat: 10
-    action :move_down, speed: 0.5, repeat: 100
+    action :move_random, speed: 4, repeat: 100
+    action :move_down, speed: 0.5, repeat: 10
+    action :hunt, speed: 1, repeat: 50
+end
+
+RubyGame::Monster.define_profile :ghost2 do
+    image_name 'ghost2'
+    speed 0.2
+    action :move_right, speed: 0.5, repeat: 30
+    action :move_random, speed: 3, repeat: 60
+    action :hunt, speed: 1, repeat: 50
+    action :move_left, speed: 1, repeat: 20
+    action :hunt, speed: 1, repeat: 50
+end
+
+RubyGame::Monster.define_profile :ghost3 do
+    image_name 'ghost3'
+    speed 0.3
+    action :move_random, speed: 1, repeat: 30
+    action :hunt, speed: 0.5, repeat: 100
 end
 
 # Go! Go! Go!
@@ -18,5 +38,7 @@ game.start! do
     ruby RubyGame::Ruby.new 65, 115
     player RubyGame::Player.new 300, 400
     #monster RubyGame::Monster.new
-    monsters Array.new(2) {RubyGame::Monster.build(:ghost)} #populates an Array X times with the content returned by the block
+    monsters RubyGame::Monster.build(:ghost1, 2)
+    monsters RubyGame::Monster.build(:ghost2, 2)
+    monsters RubyGame::Monster.build(:ghost3)
 end
