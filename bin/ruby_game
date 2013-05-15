@@ -6,8 +6,8 @@ DEBUG = true
 game = RubyGame::Game.new
 
 RubyGame::Monster.define_profile :ghost do
-    image_name 'ghost2'
-    speed 1.5
+    image_name 'ghost3'
+    speed 0.15
 end
 
 # Go! Go! Go!

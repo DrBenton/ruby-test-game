@@ -9,8 +9,8 @@ module RubyGame
 
     def initialize(x, y, image_name)
       super
-      self.draw_color = 0xffff0000
-      self.speed = DEFAULT_SPEED
+      @draw_color = 0xffffffff # 0xffff0000
+      @speed = DEFAULT_SPEED
       @speed_x = 0
       @speed_y = 0
     end

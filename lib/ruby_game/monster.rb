@@ -30,7 +30,7 @@ module RubyGame
       random_pos_y! if @y.nil?
     end
     
-    def set_target(target, speed)
+    def set_target(target, speed = @speed)
       @target = target
       @to_target_speed = speed
     end

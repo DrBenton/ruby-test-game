@@ -6,7 +6,6 @@ module RubyGame
     
     DEBUG = 1
     BACKGROUND_DEPTH = 0
-    MONSTERS_SPEED = 0.5
     
     def initialize
       super(640, 480, false, 1000/30) # 30fps, please
@@ -150,7 +149,7 @@ module RubyGame
           monster.init_image(self)
           monster.init_limits width, height, 15, 40
           monster.random_pos!
-          monster.set_target @player, MONSTERS_SPEED
+          monster.set_target @player
         end
       end
   
