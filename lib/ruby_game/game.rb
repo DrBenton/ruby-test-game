@@ -51,11 +51,11 @@ module RubyGame
       #puts "#{@monsters.length} monster(s) to handle..."
       @monsters.each(&:draw)
 
-      #puts "won?=#{won?},lost?=#{lost?}"
-      handle_text_scale if won? || lost?
+      #puts "won?=#{won?},gameover?=#{gameover?}"
+      handle_text_scale if won? || gameover?
       if won?
         @text.draw("You won!", @text_pos_x, @text_pos_y, 2, @text_scale, @text_scale, 0xffffff00)
-      elsif lost?
+      elsif gameover?
         @text.draw("You loser!", @text_pos_x, @text_pos_y, 2, @text_scale, @text_scale, 0xffffff00)
       end
       
@@ -106,26 +106,22 @@ module RubyGame
       
     end
     
-    def run?
-      @state == :run
-    end
-    
     def won!
       @state = :won
       @text_scale_phase = :grow
-    end
-    
-    def won?
-      @state == :won
     end
     
     def lost!
       @state = :lost
       @text_scale_phase = :grow
     end
-    
-    def lost?
-      @state == :lost
+   
+    # let's define "state getter" at runtime... Ruby metaprogrammation powhaaaaa!
+    %w(won run gameover).each do |state|
+      state_sym = state.to_sym
+      define_method "#{state}?" do 
+        @state == state_sym
+      end
     end
     
     def ruby(ruby)
@@ -153,7 +149,7 @@ module RubyGame
         @player.init_limits width, height, 15, 40
       end
 
-    def init_monsters
+      def init_monsters
         @monsters.each do |monster|
           monster.init_image(self)
           monster.init_limits width, height, 15, 40
